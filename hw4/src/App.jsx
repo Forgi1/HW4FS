@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './App.css';
 
 function CatImageFetcher() {
-  // Update the state to hold an object with image data
   const [catImage, setCatImage] = useState({
     url: '',
     id: '',
@@ -40,7 +39,6 @@ function CatImageFetcher() {
       }
       const data = await response.json();
       if (data[0]) {
-        // Update state with new image data
         setCatImage({
           url: data[0].url,
           id: data[0].id,
@@ -64,30 +62,46 @@ function CatImageFetcher() {
 
   return (
     <div className="cat-fetcher">
-      <h1>Cat Image Fetcher!</h1>
-      {['beng', 'abys', 'aege', 'chau'].map((breed) => (
-        <button key={breed} onClick={() => toggleBan(breed)} style={{ margin: '5px' }}>
-          {banList.includes(breed) ? `Unban ${breed}` : `Ban ${breed}`}
+      <div className="ban-list">
+        <h2>Banned Breeds</h2>
+        {banList.length > 0 ? (
+          <ul>
+            {banList.map((breed, index) => (
+              <li key={index}>{breed}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No breeds are banned.</p>
+        )}
+      </div>
+      <div className="content">
+        <h1>Cat Image Fetcher!</h1>
+        {['beng', 'abys', 'aege', 'chau'].map((breed) => (
+          <button key={breed} onClick={() => toggleBan(breed)} style={{ margin: '5px' }}>
+            {banList.includes(breed) ? `Unban ${breed}` : `Ban ${breed}`}
+          </button>
+        ))}
+        <button onClick={fetchCatImage} disabled={isLoading}>
+          {isLoading ? 'Loading...' : 'Fetch a Cat Image'}
         </button>
-      ))}
-      <button onClick={fetchCatImage} disabled={isLoading}>
-        {isLoading ? 'Loading...' : 'Fetch a Cat Image'}
-      </button>
-      {error && <p>Error: {error}</p>}
-      {catImage.url && (
-        <div>
-          <img
-            src={catImage.url}
-            alt="A random cat"
-            style={{ width: '900px', height: '700px', objectFit: 'cover' }}
-          />
-          <p>ID: {catImage.id}</p>
-          <p>Width: {catImage.width}px</p>
-          <p>Height: {catImage.height}px</p>
-        </div>
-      )}
+        {error && <p>Error: {error}</p>}
+        {catImage.url && (
+          <div>
+            <img
+              src={catImage.url}
+              alt="A random cat"
+              style={{ width: '300px', height: '300px', objectFit: 'cover' }}
+            />
+            <h2>Atrributes</h2>
+            <p>ID: {catImage.id}</p>
+            <p>Width: {catImage.width}px</p>
+            <p>Height: {catImage.height}px</p>
+          </div>
+        )}
+      </div>
     </div>
   );
+  
 }
 
 export default CatImageFetcher;

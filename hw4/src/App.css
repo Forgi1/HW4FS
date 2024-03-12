@@ -1,9 +1,22 @@
 .cat-fetcher {
   display: grid;
-  place-items: center; /* This centers the content both horizontally and vertically */
+  grid-template-columns: 1fr 3fr; /* Adjusts to your layout, where the ban list takes 1 fraction of the space and content takes 3 */
+ 
   min-height: 100vh;
+  align-items: start; /* Aligns items to the start of the container */
+  padding: 20px; 
+  
 }
-
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the content vertically in the column */
+}
+.left-panel, .ban-list {
+  flex: 1;
+  border: 2px solid #ede8e8; /* Add this line */
+  border-radius: 10px; /* Add this line */
+}
 .cat-fetcher button {
   background-color: #007bff;
   color: white;
@@ -29,5 +42,5 @@
 
 
 .cat-fetcher p {
-  color: #ff0000;
+  color: #fdfafa;
 }
